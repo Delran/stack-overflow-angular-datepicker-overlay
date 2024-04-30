@@ -1,0 +1,39 @@
+<!-- This button triggers the overlay and is it's origin -->
+<button
+  (click)="isOpen.set(!isOpen())"
+  type="button"
+  cdkOverlayOrigin
+  #trigger="cdkOverlayOrigin"
+>
+  {{isOpen() ? "Close" : "Open"}}
+</button>
+
+<!-- This template displays the overlay content and is connected to the button -->
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isOpen()"
+>
+  <mat-form-field #container>
+    <mat-label>Choose a date</mat-label>
+    <input
+      #input
+      matInput
+      [matDatepicker]="picker"
+      (blur)="onBlur($event)"
+      [cdkTrapFocusAutoCapture]="true"
+      cdkTrapFocus
+    />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker
+      #picker
+      [restoreFocus]="false"
+      (closed)="input.focus()"
+    ></mat-datepicker>
+  </mat-form-field>
+</ng-template>
+
+<!-- Copyright 2024 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at https://angular.io/license -->
